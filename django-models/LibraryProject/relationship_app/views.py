@@ -37,4 +37,5 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+
 # Create your views here.

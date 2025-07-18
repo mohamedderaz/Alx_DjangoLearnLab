@@ -39,7 +39,7 @@ class UserProfile(models.Model):
         ('Member', 'Member')
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=20, choices=[('Admin', 'Admin'), ('Librarian', 'Librarian'), ('Member', 'Member')])
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
