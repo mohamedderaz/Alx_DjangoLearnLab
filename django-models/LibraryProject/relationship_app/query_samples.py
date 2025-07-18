@@ -1,11 +1,5 @@
-import os
-import django
 
-# إعداد بيئة Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LibraryProject.settings')
-django.setup()
-
-from relationship_app.models import Author, Book, Library, Librarian
+from .models import Author, Book, Library, Librarian
 
 # اسم المؤلف اللي عايز تجيب كتبه
 author_name = "Ahmed Khaled Tawfik"
