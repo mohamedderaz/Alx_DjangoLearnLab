@@ -32,3 +32,25 @@ def delete_book(request, book_id):
     book.delete()
     return redirect('book_list')
 # Create your views here.
+books = book.objects.filter(title__icontains=title_input)
+from .forms import BookForm
+
+def create_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'bookshelf/book_form.html', {'form': form})
+from .forms import ExampleForm
+def create_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'bookshelf/book_form.html', {'form': form})
