@@ -18,3 +18,7 @@ class ContactForm(forms.Form):
         if "@" in name:
             raise forms.ValidationError("Name should not contain @ symbol.")
         return name
+    class ExampleForm(forms.Form):
+    name = forms.CharField(label='Your Name', max_length=100)
+    email = forms.EmailField(label='Your Email')
+    message = forms.CharField(label='Message', widget=forms.Textarea)
