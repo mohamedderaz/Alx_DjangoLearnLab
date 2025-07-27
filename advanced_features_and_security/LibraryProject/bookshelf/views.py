@@ -1,34 +1,34 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Article
+from .models import Book
 
 @permission_required('relationship_app.can_view', raise_exception=True)
-def article_list(request):
-    articles = Article.objects.all()
-    return render(request, 'relationship_app/article_list.html', {'articles': articles})
+def Book_list(request):
+    Books = Book.objects.all()
+    return render(request, 'relationship_app/Book_list.html', {'Books': Books})
 
 
 @permission_required('relationship_app.can_create', raise_exception=True)
-def create_article(request):
+def create_Book(request):
     if request.method == 'POST':
-        # logic to create article
+        # logic to create Book
         ...
-    return render(request, 'relationship_app/create_article.html')
+    return render(request, 'relationship_app/create_Book.html')
 
 
 @permission_required('relationship_app.can_edit', raise_exception=True)
-def edit_article(request, article_id):
-    article = get_object_or_404(Article, id=article_id)
+def edit_Book(request, Book_id):
+    Book = get_object_or_404(Book, id=Book_id)
     if request.method == 'POST':
-        # logic to update article
+        # logic to update Book
         ...
-    return render(request, 'relationship_app/edit_article.html', {'article': article})
+    return render(request, 'relationship_app/edit_Book.html', {'Book': Book})
 
 
 @permission_required('relationship_app.can_delete', raise_exception=True)
-def delete_article(request, article_id):
-    article = get_object_or_404(Article, id=article_id)
-    article.delete()
-    return redirect('article_list')
+def delete_Book(request, Book_id):
+    Book = get_object_or_404(Book, id=Book_id)
+    Book.delete()
+    return redirect('Book_list')
 # Create your views here.
