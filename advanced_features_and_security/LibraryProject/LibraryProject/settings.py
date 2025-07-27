@@ -148,3 +148,41 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # عدّل حسب حاجتك
 CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')  # عدّل حسب حاجتك
 CSP_IMG_SRC = ("'self'", 'data:')
+# ✅ 1. إعادة توجيه كل الطلبات إلى HTTPS
+SECURE_SSL_REDIRECT = True  # يحول كل طلب HTTP إلى HTTPS تلقائيًا
+
+# ✅ 2. إعداد HSTS (Strict Transport Security)
+SECURE_HSTS_SECONDS = 31536000  # سنة كاملة
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ✅ حماية من Clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# ✅ منع المتصفح من تحليل الـ content-type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# ✅ تفعيل فلتر XSS بالمتصفح
+SECURE_BROWSER_XSS_FILTER = True
+
+server {
+    listen 80;
+    server_name yourdomain.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name yourdomain.com;
+
+    ssl_certificate /etc/ssl/certs/yourdomain.crt;
+    ssl_certificate_key /etc/ssl/private/yourdomain.key;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+        ...
+    }
+}
