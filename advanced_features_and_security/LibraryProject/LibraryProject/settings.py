@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'relationship_app',
     'accounts',
+    'csp',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'django_models.urls'
@@ -125,3 +127,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/'
 #AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+# 1. Disable debug in production
+DEBUG = False
+
+# 2. Protect against XSS and content sniffing
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# 3. Prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# 4. Secure cookies (requires HTTPS)
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# 5. (اختياري لكن مفيد) امنع المواقع التانية من استخدام الكوكيز
+SECURE_COOKIES = True  # مش موجود مباشرة في Django لكن ممكن تفعله عبر إعدادات الوسيط
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # عدّل حسب حاجتك
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')  # عدّل حسب حاجتك
+CSP_IMG_SRC = ("'self'", 'data:')
