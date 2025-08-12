@@ -1,19 +1,22 @@
-from rest_framework import generics, permissions
-from .models import Book
-from .serializers import BookSerializer
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from .models import Book  # أو أي موديل عندك
 
-# List + Create
-class BookListCreateView(generics.ListCreateAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class BookListView(ListView):
+    model = Book
+    template_name = 'book_list.html'  # حط اسم التمبلت المناسب
+    context_object_name = 'books'
 
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_detail.html'
+    context_object_name = 'book'
 
+class BookUpdateView(UpdateView):
+    model = Book
+    fields = ['title', 'author', 'description']
+    template_name = 'book_form.html'
 
-# Retrieve + Update + Delete
-class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class BookDeleteView(DeleteView):
+    model = Book
+    template_name = 'book_confirm_delete.html'
+    success_url = '/'  # عدّل الرابط المناسب بعد الحذف
