@@ -9,33 +9,19 @@ router.register(r'books', BookViewSet)
 urlpatterns = [
     path('', include(router.urls)),
 ]
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Book
+from django.urls import path
+from .views import (
+    BookListView,
+    BookDetailView,
+    BookCreateView,
+    BookUpdateView,
+    BookDeleteView
+)
 
-class BookListView(ListView):
-    model = Book
-    template_name = 'books/book_list.html'
-    context_object_name = 'books'
-
-class BookDetailView(DetailView):
-    model = Book
-    template_name = 'books/book_detail.html'
-    context_object_name = 'book'
-
-class BookCreateView(CreateView):
-    model = Book
-    fields = ['title', 'author', 'published_date']
-    template_name = 'books/book_form.html'
-    success_url = reverse_lazy('book-list')
-
-class BookUpdateView(UpdateView):
-    model = Book
-    fields = ['title', 'author', 'published_date']
-    template_name = 'books/book_form.html'
-    success_url = reverse_lazy('book-list')
-
-class BookDeleteView(DeleteView):
-    model = Book
-    template_name = 'books/book_confirm_delete.html'
-    success_url = reverse_lazy('book-list')
+urlpatterns = [
+    path('books/', BookListView.as_view(), name='book-list'),
+    path('books/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
+    path('books/create', BookCreateView.as_view(), name='book-create'),
+    path('books/update', BookUpdateView.as_view(), name='book-update'),
+    path('books/delete', BookDeleteView.as_view(), name='book-delete'),
+]
