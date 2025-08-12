@@ -1,16 +1,19 @@
-from rest_framework import viewsets
-from .models import Author, Book
-from .serializers import AuthorSerializer, BookSerializer
+from rest_framework import generics, permissions
+from .models import Book
+from .serializers import BookSerializer
 
-
-class AuthorViewSet(viewsets.ModelViewSet):
-    """Full CRUD for Authors. Nested books are included in the serialized output."""
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-
-
-class BookViewSet(viewsets.ModelViewSet):
-    """Full CRUD for Books. BookSerializer includes validation for publication_year."""
+# List + Create
+class BookListCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-# Create your views here.
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+# Retrieve + Update + Delete
+class BookRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]

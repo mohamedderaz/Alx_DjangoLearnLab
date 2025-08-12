@@ -58,3 +58,10 @@ class AuthorSerializer(serializers.ModelSerializer):
     #     for book_data in books_data:
     #         Book.objects.create(author=author, **book_data)
     #     return author
+from rest_framework import serializers
+from .models import Book
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
