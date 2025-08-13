@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h2>حذف التعليق</h2>
+<p>هل أنت متأكد أنك تريد حذف هذا التعليق؟</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">نعم، حذف</button>
+    <a href="{% url 'post_detail' comment.post.pk %}" class="btn btn-secondary">إلغاء</a>
+</form>
+{% endblock %}
