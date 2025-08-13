@@ -1,6 +1,8 @@
 {% extends "blog/base.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog/css/login.css' %}">
 <h1>Create account</h1>
 <form method="post" novalidate>
   {% csrf_token %}
@@ -8,4 +10,5 @@
   <button type="submit">Register</button>
 </form>
 <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<link rel="stylesheet" href="{% static 'blog/css/register.css' %}">
 {% endblock %}

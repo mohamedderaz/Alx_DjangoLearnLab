@@ -1,6 +1,8 @@
 {% extends "blog/base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog/css/login.css' %}">
 <h1>Login</h1>
 <form method="post" novalidate>
   {% csrf_token %}
