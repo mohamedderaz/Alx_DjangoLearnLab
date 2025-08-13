@@ -53,3 +53,14 @@ def profile(request):
     return render(request, "blog/auth/profile.html", {"form": form})
 
 # Create your views here.
+from .forms import CustomUserCreationForm
+
+def register(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("login")
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "register.html", {"form": form})
