@@ -264,3 +264,20 @@ def post_list(request):
         ).distinct()
 
     return render(request, 'blog/post_list.html', {'posts': posts})
+from django.shortcuts import render
+from .models import Post
+from django.db.models import Q
+
+def post_list(request):
+    query = request.GET.get('q')
+
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        posts = Post.objects.all()
+
+    return render(request, 'blog/post_list.html', {'posts': posts})
