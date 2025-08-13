@@ -129,3 +129,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "blog/static")]
 
 TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, "blog/templates")]
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'profile'     # بعد تسجيل الدخول
+LOGOUT_REDIRECT_URL = 'login'      # بعد تسجيل الخروج
+
+# أثناء التطوير فقط (لو احتجت إرسال إيميل لاحقًا)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
