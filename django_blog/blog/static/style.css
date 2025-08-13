@@ -1,0 +1,4 @@
+body { font-family: system-ui, Arial, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 12px; }
+nav a { margin-right: 12px; }
+form { margin-top: 16px; }
+.msg { background: #eef; border: 1px solid #99c; padding: 8px; margin: 8px 0; }
