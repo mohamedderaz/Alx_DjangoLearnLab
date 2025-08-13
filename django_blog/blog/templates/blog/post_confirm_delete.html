@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Delete Post</h1>
-<p>Are you sure you want to delete "{{ object.title }}"?</p>
-
+<h2>{% if form.instance.pk %}Edit Comment{% else %}New Comment{% endif %}</h2>
 <form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">{% if form.instance.pk %}Update{% else %}Create{% endif %}</button>
 </form>
-
-<a href="{% url 'post-detail' object.pk %}">Cancel</a>
 {% endblock %}
