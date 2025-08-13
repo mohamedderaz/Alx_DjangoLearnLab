@@ -46,3 +46,26 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+        from django import forms
+from .models import Comment
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']  # المستخدم هيكتب المحتوى فقط
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'اكتب تعليقك هنا...'
+            }),
+        }
+        labels = {
+            'content': ''
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if len(content.strip()) == 0:
+            raise forms.ValidationError("لا يمكن إرسال تعليق فارغ.")
+        return content
