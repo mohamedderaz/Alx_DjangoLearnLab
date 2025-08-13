@@ -60,7 +60,7 @@ from . import views
 
 urlpatterns = [
     # existing URLs for posts
-    path('', views.PostListView.as_view(), name='post_list'),
+    path('', views.post_list, name='post_list'),', views.PostListView.as_view(), name='post_list'),
     path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
 
     # comment URLs
