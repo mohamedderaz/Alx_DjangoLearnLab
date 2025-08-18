@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0*wg20kr4u(wsz0+lgshtm%%(rzeq(2cxrfnn8@#3&!c6=o^e)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -140,3 +140,17 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+ALLOWED_HOSTS = ["your-domain.com", "www.your-domain.com", "your-server-ip"]
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # لو عندك شهادة SSL
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+import os
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret")
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
