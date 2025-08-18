@@ -148,6 +148,7 @@ SECURE_SSL_REDIRECT = True  # لو عندك شهادة SSL
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 import os
+PORT = os.environ.get("PORT", 8000)
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-secret")
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
